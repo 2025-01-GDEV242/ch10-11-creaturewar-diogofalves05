@@ -9,20 +9,24 @@ public class BattleSimulator {
         // Populate good army: mostly Humans & Elves
         for (int i = 0; i < 100; i++) {
             int roll = Randomizer.nextInt(10);
-            if (roll < 6) {
+            if (roll < 5) {
                 goodArmy.add(new Human());
-            } else {
+            } else if (roll < 8) {
                 goodArmy.add(new Elf());
+            } else {
+                goodArmy.add(new Dwarf());
             }
         }
 
         // Populate evil army: fewer but more powerful
         for (int i = 0; i < 40; i++) {
             int roll = Randomizer.nextInt(25);
-            if (roll < 18) {
+            if (roll < 15) {
                 evilArmy.add(new Human());
-            } else if (roll < 24) {
+            } else if (roll < 21) {
                 evilArmy.add(new CyberDemon());
+            } else if (roll < 24) {
+                evilArmy.add(new Orc());
             } else {
                 evilArmy.add(new Balrog());
             }
