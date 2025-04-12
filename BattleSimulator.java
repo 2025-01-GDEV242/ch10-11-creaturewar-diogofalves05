@@ -6,7 +6,7 @@ public class BattleSimulator {
         ArrayList<Creature> goodArmy = new ArrayList<>();
         ArrayList<Creature> evilArmy = new ArrayList<>();
 
-        // Populate good army: mostly Humans & Elves
+        // Populate good army: Humans, Elves, Dwarves
         for (int i = 0; i < 100; i++) {
             int roll = Randomizer.nextInt(10);
             if (roll < 5) {
@@ -18,7 +18,7 @@ public class BattleSimulator {
             }
         }
 
-        // Populate evil army: fewer but more powerful
+        // Populate evil army: Humans, CyberDemons, Orcs, Balrogs
         for (int i = 0; i < 40; i++) {
             int roll = Randomizer.nextInt(25);
             if (roll < 15) {
@@ -37,6 +37,9 @@ public class BattleSimulator {
 
         int goodIndex = 0;
         int evilIndex = 0;
+        int totalFights = 0;
+        int goodKOs = 0;
+        int evilKOs = 0;
 
         while (goodIndex < goodArmy.size() && evilIndex < evilArmy.size()) {
             Creature good = goodArmy.get(goodIndex);
@@ -60,16 +63,20 @@ public class BattleSimulator {
             if (!good.isAlive()) {
                 System.out.println("💀 Good " + good.getClass().getSimpleName() + " is knocked out!");
                 goodIndex++;
+                goodKOs++;
             }
 
             if (!evil.isAlive()) {
                 System.out.println("💀 Evil " + evil.getClass().getSimpleName() + " is knocked out!");
                 evilIndex++;
+                evilKOs++;
             }
 
             System.out.println("---------------");
+            totalFights++;
         }
 
+        // Final result
         if (goodIndex >= goodArmy.size() && evilIndex >= evilArmy.size()) {
             System.out.println("⚖️ It's a tie! Both armies are wiped out.");
         } else if (goodIndex >= goodArmy.size()) {
@@ -77,5 +84,14 @@ public class BattleSimulator {
         } else {
             System.out.println("🛡️ Good Army wins the war!");
         }
+
+        // Final Stats Summary
+        System.out.println("\n===== Final Battle Stats =====");
+        System.out.println("Total Duels Fought: " + totalFights);
+        System.out.println("Good Creatures Knocked Out: " + goodKOs);
+        System.out.println("Evil Creatures Knocked Out: " + evilKOs);
+        System.out.println("Good Survivors: " + (goodArmy.size() - goodKOs));
+        System.out.println("Evil Survivors: " + (evilArmy.size() - evilKOs));
+        System.out.println("================================");
     }
 }
